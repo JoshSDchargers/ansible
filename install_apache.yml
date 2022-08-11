@@ -1,0 +1,21 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: install apache2 package
+    apt:
+      name: apache2
+
+  - name: add php
+    apt:
+      name: libapache2-mod-php
+
+  - name: nmap
+    apt:
+      name: nmap
+
+  - name: sql install
+    apt:
+      name: mysql-server
