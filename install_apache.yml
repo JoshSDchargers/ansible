@@ -19,3 +19,15 @@
   - name: sql install
     apt:
       name: mysql-server
+
+  - name: Allow all access to tcp port80
+    community.general.ufw:
+      rule: allow
+      port: '80'
+      proto: tcp
+
+  - name: Allow all access to tcp port443
+    community.general.ufw:
+      rule: allow
+      port: '443'
+      proto: tcp
