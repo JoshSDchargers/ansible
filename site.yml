@@ -54,6 +54,12 @@
         group: root
         mode: 0755
 
+    - name: start httpd(ubuntu)
+      tags: apache,apache2,httpd
+      service:
+        name: apache2
+        state: started
+
 - hosts: db_servers
   become: true
   tasks:
