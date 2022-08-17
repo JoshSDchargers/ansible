@@ -58,7 +58,22 @@
       tags: apache,apache2,httpd
       service:
         name: apache2
-        state: start
+        state: started
+
+    - name: change email address for admin
+      tags: apache,centos,httpd
+      lineinfile:
+        path: /etc/apache2/apache2.conf
+        regexp: '^Timeout'
+        line: Timeout 400
+      register: apache2
+
+    - name: restart httpd
+      service:
+        name: apache2
+        state: restarted
+      when: apache2.changed
+
 
 - hosts: db_servers
   become: true
