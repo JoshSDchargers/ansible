@@ -1,0 +1,48 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: install updates(centos)
+    apt:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+
+- hosts: web_servers
+  become: true
+  tasks:
+
+    - name: install apache and php for servers
+      tags: web server,apache2,ubuntu
+      apt:
+        name:
+          - apache2
+          - libapache2-mod-php
+        state: latest
+      when: ansible_distribution == "Ubuntu"
+
+- hosts: db_servers
+  become: true
+  tasks:
+
+    - name: installing sql server
+      tags: sql,mysql,db
+      apt:
+        name:
+          - mysql-server
+        state: latest
+      when: ansible_distribution == "Ubuntu"
+
+- hosts: file_servers
+  become: true
+  tasks:
+
+    - name: installing file server
+      tags: file,storage
+      apt:
+        name: samba
+        state: latest
+      
